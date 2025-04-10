@@ -1,5 +1,7 @@
+import TicketForm from "@/app/(components)/TicketForm";
+
 const TicketPage = async ({ params }) => {
-  return <div>TicketPage</div>;
+  return <TicketForm />
 };
 
 export default TicketPage;

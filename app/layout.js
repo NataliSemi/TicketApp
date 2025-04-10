@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
             >
                 <div className="flex flex-col h-screen max-h-screen">
                     <Nav />
-                    <div className="flex-grow overflow-y-auto bg-page">
+                    <div className="flex-grow overflow-y-auto bg-page text-default-text">
                         {children}
                     </div>
                 </div>

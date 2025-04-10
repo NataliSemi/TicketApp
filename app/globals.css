@@ -20,25 +20,32 @@ body {
   h1 {
     font-size: 2.25rem; /* Directly using a custom font size for h1 (text-4xl equivalent) */
     margin: 0 0 5px 0;
+    color: var(--default-text);
   }
   h2 {
     font-size: 1.875rem; /* Custom font size for h2 (text-3xl equivalent) */
+    color: var(--default-text);
   }
   h3 {
     font-size: 1.5rem; /* Custom font size for h3 (text-2xl equivalent) */
+    color: var(--default-text);
   }
   h4 {
     font-size: 1.25rem; /* Custom font size for h4 (text-xl equivalent) */
+    color: var(--default-text);
   }
   h5 {
     font-size: 1.125rem; /* Custom font size for h5 (text-lg equivalent) */
+    color: var(--default-text);
   }
   p {
     font-size: 0.875rem; /* Custom font size for p (text-sm equivalent) */
+    color: var(--default-text);
   }
   form {
     border-radius: 1rem; /* Equivalent to rounded-xl */
     padding: 1rem;
+    color: var(--default-text);
   }
   label {
     margin-top: 1rem;
