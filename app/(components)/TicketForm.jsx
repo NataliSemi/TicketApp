@@ -37,32 +37,34 @@ const TicketForm = ({ ticket }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (EDITMODE) {
-      const res = await fetch(`/api/Tickets/${ticket._id}`, {
-        method: "PUT",
+    console.log("Form submitted with data:", formData);
+  
+    try {
+      const res = await fetch("/api/Tickets", {
+        method: "POST",
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ formData }),
       });
+      
+      console.log("Response status:", res.status);
+      
       if (!res.ok) {
-        throw new Error("Failed to update ticket");
+        const errorData = await res.json();
+        console.error("Error response:", errorData);
+        throw new Error(`Failed to create ticket: ${res.status} ${errorData.message || ''}`);
       }
-    } else {
-      const res = await fetch("/api/Tickets", {
-        method: "POST",
-        body: JSON.stringify({ formData }),
-        //@ts-ignore
-        "Content-Type": "application/json",
-      });
-      if (!res.ok) {
-        throw new Error("Failed to create ticket");
-      }
+      
+      const successData = await res.json();
+      console.log("Success response:", successData);
+      
+      router.refresh();
+      router.push("/");
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert(`Error: ${error.message}`);
     }
-
-    router.refresh();
-    router.push("/");
   };
 
   const categories = [

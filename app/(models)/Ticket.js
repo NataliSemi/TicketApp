@@ -1,7 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-
-mongoose.connect(process.env.MONGODB_URI);
-mongoose.Promise = global.Promise;
+import connectDB from '../lib/mongodb';
 
 const ticketSchema = new Schema(
   {
@@ -17,6 +15,9 @@ const ticketSchema = new Schema(
     timestamps: true,
   }
 );
+
+// Connect to the database before accessing the model
+connectDB();
 
 const Ticket = mongoose.models.Ticket || mongoose.model("Ticket", ticketSchema);
 
