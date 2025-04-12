@@ -37,34 +37,32 @@ const TicketForm = ({ ticket }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with data:", formData);
-  
-    try {
-      const res = await fetch("/api/Tickets", {
-        method: "POST",
+
+    if (EDITMODE) {
+      const res = await fetch(`/api/Tickets/${ticket._id}`, {
+        method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          "Content-type": "application/json",
         },
         body: JSON.stringify({ formData }),
       });
-      
-      console.log("Response status:", res.status);
-      
       if (!res.ok) {
-        const errorData = await res.json();
-        console.error("Error response:", errorData);
-        throw new Error(`Failed to create ticket: ${res.status} ${errorData.message || ''}`);
+        throw new Error("Failed to update ticket");
       }
-      
-      const successData = await res.json();
-      console.log("Success response:", successData);
-      
-      router.refresh();
-      router.push("/");
-    } catch (error) {
-      console.error("Submission error:", error);
-      alert(`Error: ${error.message}`);
+    } else {
+      const res = await fetch("/api/Tickets", {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        //@ts-ignore
+        "Content-Type": "application/json",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to create ticket");
+      }
     }
+
+    router.refresh();
+    router.push("/");
   };
 
   const categories = [
@@ -186,5 +184,6 @@ const TicketForm = ({ ticket }) => {
     </div>
   );
 };
+
 
 export default TicketForm;
